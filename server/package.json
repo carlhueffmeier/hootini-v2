@@ -1,0 +1,30 @@
+{
+  "name": "hootini",
+  "version": "2.0.1-alpha",
+  "scripts": {
+    "test:unit": "jest",
+    "lint": "eslint ."
+  },
+  "author": "Carl Huffmeier",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/runtime": "^7.4.5",
+    "bcrypt": "^3.0.6",
+    "jsonwebtoken": "^8.5.1",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@types/jest": "^24.0.13",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "faker": "^4.1.0",
+    "jest": "^24.8.0",
+    "jest-transform-stub": "^2.0.0",
+    "prettier": "^1.17.1"
+  }
+}
