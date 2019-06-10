@@ -2,8 +2,8 @@ const User = require('./User');
 const uuid = require('uuid/v4');
 const assert = require('assert');
 
-const usersById = {};
-const usersByEmail = {};
+var usersById = {};
+var usersByEmail = {};
 
 const UserGateway = {
   async save(user) {
@@ -20,6 +20,11 @@ const UserGateway = {
 
   async findUserById(id) {
     return usersById[id];
+  },
+
+  async truncate() {
+    usersById = {};
+    usersByEmail = {};
   },
 };
 

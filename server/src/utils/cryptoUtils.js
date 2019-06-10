@@ -3,10 +3,8 @@ const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 const config = require('../config');
 
-const SALT_ROUNDS = 10;
-
 function calculatePasswordHash(password) {
-  return bcrypt.hash(password, SALT_ROUNDS);
+  return bcrypt.hash(password, config.salt_rounds);
 }
 
 function compareToHash(password, hash) {

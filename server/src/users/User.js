@@ -2,6 +2,7 @@ const assert = require('assert');
 const {
   calculatePasswordHash,
   compareToHash,
+  generateToken,
 } = require('../utils/cryptoUtils');
 
 const User = {
@@ -22,8 +23,19 @@ const User = {
   },
 
   async isPasswordCorrect(attempt) {
-    assert(this.password != undefined, 'no password set');
+    assert(
+      this.password != undefined,
+      'Cannot compare passwords: No password set',
+    );
     return compareToHash(attempt, this.password);
+  },
+
+  async generateToken() {
+    assert(
+      this.id != undefined,
+      'The user has to be persisted to generate a token.',
+    );
+    return generateToken(this.id);
   },
 };
 

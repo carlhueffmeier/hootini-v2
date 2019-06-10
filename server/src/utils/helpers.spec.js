@@ -48,4 +48,23 @@ describe('helpers', () => {
       expect(helpers.none(x => x)([])).toBe(true);
     });
   });
+
+  describe('path()', () => {
+    const object = { a: [{ b: { c: 3 } }] };
+
+    it('given valid path, returns correct value', async () => {
+      const result = helpers.path(['a', '0', 'b', 'c'], object);
+      expect(result).toBe(3);
+    });
+
+    it('given invalid path, returns undefined', async () => {
+      const result = helpers.path(['a', 'b', 'c'], object);
+      expect(result).toBeUndefined();
+    });
+
+    it('is curried', async () => {
+      const result = helpers.path(['a', '0', 'b', 'c'])(object);
+      expect(result).toBe(3);
+    });
+  });
 });

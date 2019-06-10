@@ -1,15 +1,17 @@
 const User = require('./User');
-const { fakeNewUserInput } = require('./UserTestUtils');
+const { fakeNewUserInput, aUser } = require('./UserTestUtils');
+const UserGateway = require('./UserGateway');
+const { unpackToken } = require('../utils/cryptoUtils');
 
 const userData = fakeNewUserInput();
 
 describe('User', () => {
-  it('can be created', () => {
+  it('create()', () => {
     const user = User.create();
     expect(User.isPrototypeOf(user)).toBe(true);
   });
 
-  it('can be initialized with new', async () => {
+  it('new()', async () => {
     const user = await User.new(userData);
     expect(user.name).toEqual(userData.name);
     expect(user.email).toEqual(userData.email);
@@ -37,5 +39,14 @@ describe('User', () => {
       const isCorrect = await user.isPasswordCorrect('incorrect');
       expect(isCorrect).toBe(false);
     });
+  });
+
+  it('generateToken()', async () => {
+    const user = await aUser();
+    await UserGateway.save(user);
+    const token = await user.generateToken();
+    const unpackedToken = await unpackToken(token);
+
+    expect(unpackedToken.userId).toBe(user.id);
   });
 });
