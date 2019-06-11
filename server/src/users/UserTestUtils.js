@@ -4,14 +4,14 @@ const faker = require('faker');
 // Users
 
 function aUser() {
-  return User.new(fakeNewUserInput());
+  return User.new(aNewUserProps());
 }
 
 function aUserId() {
   return faker.random.uuid();
 }
 
-function fakeNewUserInput() {
+function aNewUserProps() {
   return {
     name: faker.name.findName(),
     email: faker.internet.email(),
@@ -21,4 +21,4 @@ function fakeNewUserInput() {
 
 exports.aUser = aUser;
 exports.aUserId = aUserId;
-exports.fakeNewUserInput = fakeNewUserInput;
+exports.aNewUserProps = aNewUserProps;

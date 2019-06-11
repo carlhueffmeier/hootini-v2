@@ -2,10 +2,10 @@ const UserService = require('./UserService');
 const UserGateway = require('./UserGateway');
 const localEvents = require('../utils/localEvents');
 const { USER_CREATED } = require('./UserEvents');
-const { fakeNewUserInput, aUser } = require('./UserTestUtils');
+const { aNewUserProps, aUser } = require('./UserTestUtils');
 const AuthenticationError = require('./AuthenticationError');
 
-const userData = fakeNewUserInput();
+const userData = aNewUserProps();
 const fakeCredentials = {
   email: userData.email,
   password: userData.password,
@@ -18,14 +18,14 @@ describe('UserService', () => {
 
   describe('createUser()', () => {
     it('creates a new user', async () => {
-      const user = await UserService.createUser(fakeNewUserInput());
+      const user = await UserService.createUser(aNewUserProps());
       expect(user).toBeDefined();
     });
 
     it('creating a user emits an event', async () => {
       const subscriber = jest.fn();
       localEvents.subscribe(USER_CREATED, subscriber);
-      await UserService.createUser(fakeNewUserInput());
+      await UserService.createUser(aNewUserProps());
       expect(subscriber).toHaveBeenCalled();
     });
   });

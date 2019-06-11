@@ -1,9 +1,9 @@
 const User = require('./User');
-const { fakeNewUserInput, aUser } = require('./UserTestUtils');
+const { aNewUserProps, aUser } = require('./UserTestUtils');
 const UserGateway = require('./UserGateway');
 const { unpackToken } = require('../utils/cryptoUtils');
 
-const userData = fakeNewUserInput();
+const userData = aNewUserProps();
 
 describe('User', () => {
   it('create()', () => {

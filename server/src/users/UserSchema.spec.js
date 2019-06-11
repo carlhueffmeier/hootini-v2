@@ -2,7 +2,7 @@ const UserSchema = require('./UserSchema');
 const UserService = require('./UserService');
 const { mountSchema } = require('../graphql/GraphQLTestUtils');
 const gql = require('graphql-tag');
-const { fakeNewUserInput } = require('./UserTestUtils');
+const { aNewUserProps } = require('./UserTestUtils');
 
 const ME_QUERY = gql`
   query {
@@ -34,7 +34,7 @@ const SIGNIN_MUTATION = gql`
   }
 `;
 
-const userData = fakeNewUserInput();
+const userData = aNewUserProps();
 
 describe('UserSchema', () => {
   var query;
