@@ -1,38 +1,8 @@
 const UserSchema = require('./UserSchema');
 const UserService = require('./UserService');
 const { mountSchema } = require('../graphql/GraphQLTestUtils');
-const gql = require('graphql-tag');
 const { aNewUserProps } = require('./UserTestUtils');
-
-const ME_QUERY = gql`
-  query {
-    me {
-      id
-    }
-  }
-`;
-
-const SIGNUP_MUTATION = gql`
-  mutation signup($name: String!, $email: String!, $password: String!) {
-    signup(data: { name: $name, email: $email, password: $password }) {
-      token
-      user {
-        id
-      }
-    }
-  }
-`;
-
-const SIGNIN_MUTATION = gql`
-  mutation signin($email: String!, $password: String!) {
-    signin(data: { email: $email, password: $password }) {
-      token
-      user {
-        id
-      }
-    }
-  }
-`;
+const queries = require('./mock/queries');
 
 const userData = aNewUserProps();
 
@@ -53,7 +23,7 @@ describe('UserSchema', () => {
       const signupResponse = await signupUser(userData);
       userId = signupResponse.data.signup.user.id;
       const result = await query({
-        query: ME_QUERY,
+        query: queries.ME_QUERY,
       });
       expect(result.data.me.id).toBe(userId);
     });
@@ -69,7 +39,7 @@ describe('UserSchema', () => {
     it('signin', async () => {
       await signupUser(userData);
       const result = await mutate({
-        query: SIGNIN_MUTATION,
+        query: queries.SIGNIN_MUTATION,
         variables: { email: userData.email, password: userData.password },
       });
       expect(result.data.signin.token).toBeDefined();
@@ -79,7 +49,7 @@ describe('UserSchema', () => {
 
   function signupUser(userData) {
     return mutate({
-      query: SIGNUP_MUTATION,
+      query: queries.SIGNUP_MUTATION,
       variables: userData,
     });
   }
