@@ -2,18 +2,18 @@ const Deck = require('./Deck');
 const uuid = require('uuid/v4');
 const assert = require('assert');
 
-const decksById = {};
-const decksByUser = {};
+var decksById = {};
+var decksByUserId = {};
 
 const DeckGateway = {
   async save(deck) {
     assert(Deck.isPrototypeOf(deck), 'Cannot save deck: Incorrect type');
     deck.id = uuid();
     decksById[deck.id] = deck;
-    if (decksByUser[deck.user]) {
-      decksByUser[deck.user].push(deck);
+    if (decksByUserId[deck.userId]) {
+      decksByUserId[deck.userId].push(deck);
     } else {
-      decksByUser[deck.user] = [deck];
+      decksByUserId[deck.userId] = [deck];
     }
     return deck;
   },
@@ -23,7 +23,12 @@ const DeckGateway = {
   },
 
   async findDecksByUserId(userId) {
-    return decksByUser[userId];
+    return decksByUserId[userId];
+  },
+
+  async truncate() {
+    decksById = {};
+    decksByUserId = {};
   },
 };
 

@@ -19,7 +19,7 @@ describe('DeckGateway', () => {
   });
 
   it('should find decks by user', async () => {
-    const deck = aDeck({ user: A_USER_ID });
+    const deck = aDeck({ userId: A_USER_ID });
     await DeckGateway.save(deck);
     const foundDecks = await DeckGateway.findDecksByUserId(A_USER_ID);
     expect(foundDecks).toEqual([deck]);

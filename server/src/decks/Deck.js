@@ -14,12 +14,12 @@ const Deck = {
 
   init(deckData) {
     assert(
-      none(isNil, [deckData.name, deckData.user]),
+      none(isNil, [deckData.name, deckData.userId]),
       'Cannot initialize deck: Invalid Arguments',
     );
     this.name = deckData.name;
+    this.userId = deckData.userId;
     this.description = deckData.description;
-    this.user = deckData.user;
   },
 };
 

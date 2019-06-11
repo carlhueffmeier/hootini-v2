@@ -1,7 +1,7 @@
 const Deck = require('./Deck');
-const { fakeNewDeckInput } = require('./DeckTestUtils');
+const { aNewDeckProps } = require('./DeckTestUtils');
 
-const deckData = fakeNewDeckInput();
+const deckData = aNewDeckProps();
 
 describe('Deck', () => {
   it('can be created', () => {
