@@ -1,6 +1,6 @@
 {
-  "name": "client",
-  "version": "0.1.0",
+  "name": "hootini-client",
+  "version": "2.0.1-alpha",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
