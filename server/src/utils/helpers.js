@@ -38,3 +38,4 @@ exports.curry = curry;
 exports.any = any;
 exports.none = none;
 exports.path = path;
+exports.generateSlug = require('slugs');

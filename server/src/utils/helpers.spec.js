@@ -67,4 +67,42 @@ describe('helpers', () => {
       expect(result).toBe(3);
     });
   });
+
+  describe('generateSlug()', () => {
+    it('given mixed case, returns all lower case', async () => {
+      checkSlug('Spanish', 'spanish');
+      checkSlug('SPANISH', 'spanish');
+    });
+
+    it('given umlaut, returns correct representation', async () => {
+      checkSlug('Ü', 'ue');
+      checkSlug('ü', 'ue');
+      checkSlug('Ö', 'oe');
+      checkSlug('ö', 'oe');
+      checkSlug('Ä', 'ae');
+      checkSlug('ä', 'ae');
+      checkSlug('ß', 'ss');
+    });
+
+    it('given multiple spaces, returns single dash', async () => {
+      checkSlug('Spanish  Vocabulary', 'spanish--vocabulary');
+    });
+
+    it('given space on either side, should be trimmed', async () => {
+      checkSlug('    spanish vocabulary       ', 'spanish-vocabulary');
+    });
+
+    it('given alphanumeric character, should be omitted', async () => {
+      checkSlug(')({}:"spanish&&&&@@@@@grammar^!@)(5', 'spanishgrammar5');
+    });
+
+    it('given _, should be preserved', async () => {
+      checkSlug('_-_-_', '_-_-_');
+    });
+
+    function checkSlug(input, expected) {
+      const result = helpers.generateSlug(input);
+      expect(result).toBe(expected);
+    }
+  });
 });

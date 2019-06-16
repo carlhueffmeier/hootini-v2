@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { none, isNil } = require('../utils/helpers');
+const { none, isNil, generateSlug } = require('../utils/helpers');
 
 const Deck = {
   new(deckData) {
@@ -17,8 +17,9 @@ const Deck = {
       none(isNil, [deckData.name, deckData.userId]),
       'Cannot initialize deck: Invalid Arguments',
     );
-    this.name = deckData.name;
     this.userId = deckData.userId;
+    this.name = deckData.name;
+    this.slug = generateSlug(deckData.name);
     this.description = deckData.description;
   },
 };

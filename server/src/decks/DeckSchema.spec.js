@@ -8,12 +8,11 @@ const deckData = aNewDeckUserInput();
 const A_USER_ID = 5;
 
 describe('DeckSchema', () => {
-  var query;
   var mutate;
 
   beforeEach(() => {
     const deckService = DeckService.new({ userId: A_USER_ID });
-    ({ query, mutate } = mountSchema(DeckSchema, { deckService }));
+    ({ mutate } = mountSchema(DeckSchema, { deckService }));
   });
 
   describe('Queries', () => {
@@ -25,7 +24,6 @@ describe('DeckSchema', () => {
   describe('Mutations', () => {
     it('createDeck', async () => {
       const result = await createDeck(deckData);
-      console.warn('Errors: ', result.errors);
       expect(result.data.createDeck.id).toBeDefined();
       expect(result.data.createDeck.name).toBe(deckData.name);
     });
