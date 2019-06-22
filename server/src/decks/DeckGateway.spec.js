@@ -55,7 +55,7 @@ describe('DeckGateway', () => {
     });
   });
 
-  describe('findDeckByUserIdAndslug()', () => {
+  describe('findDeckByUserIdAndSlug()', () => {
     it('should find decks for userId', async () => {
       const deck = aDeck({ userId: A_USER_ID });
       await DeckGateway.save(deck);
@@ -85,10 +85,65 @@ describe('DeckGateway', () => {
     });
   });
 
-  it('should find decks by user', async () => {
-    const deck = aDeck({ userId: A_USER_ID });
-    await DeckGateway.save(deck);
-    const foundDecks = await DeckGateway.findDecksByUserId(A_USER_ID);
-    expect(foundDecks).toEqual([deck]);
+  describe('findDecksByUserIdAndName()', () => {
+    it('should find decks by name', async () => {
+      const deck = aDeck({ userId: A_USER_ID, name: 'deck123' });
+      await DeckGateway.save(deck);
+      const result = await DeckGateway.findDecksByUserIdAndName(
+        A_USER_ID,
+        'deck',
+      );
+      expect(result).toEqual([deck]);
+    });
+
+    it('should return undefined for nonexistant decks', async () => {
+      const foundDeck = await DeckGateway.findDecksByUserIdAndName(
+        A_USER_ID,
+        'deckThatDoesNotExist',
+      );
+      expect(foundDeck).toEqual([]);
+    });
+
+    it('should not return decks belonging to other users', async () => {
+      const deck = aDeck({ userId: A_USER_ID });
+      await DeckGateway.save(deck);
+      const foundDeck = await DeckGateway.findDecksByUserIdAndName(
+        ANOTHER_USER_ID,
+        deck.name,
+      );
+      expect(foundDeck).toEqual([]);
+    });
+  });
+
+  describe('findDecksByUserIdAndNameExact()', () => {
+    it('should find decks by name', async () => {
+      const deck = aDeck({ userId: A_USER_ID, name: 'deck123' });
+      await DeckGateway.save(deck);
+      const result = await DeckGateway.findDecksByUserIdAndNameExact(
+        A_USER_ID,
+        'deck123',
+      );
+      expect(result).toEqual([deck]);
+    });
+
+    it('should return undefined for nonexistant decks', async () => {
+      const deck = aDeck({ userId: A_USER_ID, name: 'deck123' });
+      await DeckGateway.save(deck);
+      const results = await DeckGateway.findDecksByUserIdAndNameExact(
+        A_USER_ID,
+        'deck',
+      );
+      expect(results).toEqual([]);
+    });
+
+    it('should not return decks belonging to other users', async () => {
+      const deck = aDeck({ userId: A_USER_ID });
+      await DeckGateway.save(deck);
+      const results = await DeckGateway.findDecksByUserIdAndNameExact(
+        ANOTHER_USER_ID,
+        deck.name,
+      );
+      expect(results).toEqual([]);
+    });
   });
 });

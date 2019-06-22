@@ -62,6 +62,11 @@ function isTestEnv() {
   return process.env.NODE_ENV === 'test';
 }
 
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
+
 exports.not = not;
 exports.isNil = isNil;
 exports.isArray = isArray;
@@ -74,4 +79,5 @@ exports.pipe = pipe;
 exports.intercept = intercept;
 exports.uniq = uniq;
 exports.isTestEnv = isTestEnv;
+exports.escapeRegExp = escapeRegExp;
 exports.generateSlug = require('slugs');

@@ -1,4 +1,5 @@
 const DeckSchema = require('./DeckSchema');
+const DeckGateway = require('./DeckGateway');
 const DeckService = require('./DeckService');
 const { mountSchema } = require('../graphql/GraphQLTestUtils');
 const { aNewDeckUserInput } = require('./DeckTestUtils');
@@ -11,6 +12,7 @@ describe('DeckSchema', () => {
   var query, mutate;
 
   beforeEach(() => {
+    DeckGateway.truncate();
     const deckService = DeckService.new({ userId: A_USER_ID });
     ({ query, mutate } = mountSchema(DeckSchema, { deckService }));
   });
@@ -42,7 +44,45 @@ describe('DeckSchema', () => {
       });
     });
 
-    it('allDecks', async () => {});
+    describe('allDecks', () => {
+      it('should return all decks for user', async () => {
+        const deck1 = await createDeckWithName('deck1');
+        const deck2 = await createDeckWithName('deck2');
+
+        const result = await query({
+          query: queries.ALL_DECKS_QUERY,
+        });
+        expect(result.data.allDecks).toEqual([deck1, deck2]);
+      });
+
+      it('should find decks by "equals" name search', async () => {
+        const deck = await createDeckWithName('deck');
+        await createDeckWithName('deck2');
+
+        const result = await query({
+          query: queries.SEARCH_DECKS_BY_NAME_EQ_QUERY,
+          variables: { nameEquals: 'deck' },
+        });
+        expect(result.data.allDecks).toEqual([deck]);
+      });
+
+      it('should find decks by "contains" name search', async () => {
+        const deck = await createDeckWithName('deck');
+        const deck2 = await createDeckWithName('deck2');
+
+        const result = await query({
+          query: queries.SEARCH_DECKS_BY_NAME_CONTAINS_QUERY,
+          variables: { nameContains: 'deck' },
+        });
+        expect(result.data.allDecks).toEqual([deck, deck2]);
+      });
+
+      async function createDeckWithName(name) {
+        const createDeckInput = aNewDeckUserInput({ name });
+        const createDeckResponse = await createDeck(createDeckInput);
+        return createDeckResponse.data.createDeck;
+      }
+    });
   });
 
   describe('Mutations', () => {

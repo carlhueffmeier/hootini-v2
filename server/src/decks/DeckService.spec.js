@@ -98,6 +98,58 @@ describe('DeckService', () => {
     });
   });
 
+  describe('findDecksByName()', () => {
+    it('returns decks', async () => {
+      const serviceOfMicah = aServiceForUser(USER_ID_MICAH);
+      const micahsDeck = await serviceOfMicah.createDeck({
+        name: 'micahsDeck',
+      });
+
+      const result = await serviceOfMicah.findDecksByName('micahs');
+      expect(result).toEqual([micahsDeck]);
+    });
+
+    it('returns only decks for current user', async () => {
+      const serviceOfBob = aServiceForUser(USER_ID_BOB);
+      const serviceOfMicah = aServiceForUser(USER_ID_MICAH);
+      await serviceOfMicah.createDeck({ name: 'micahsDeck' });
+
+      const result = await serviceOfBob.findDecksByName('micahs');
+      expect(result).toEqual([]);
+    });
+  });
+
+  describe('findDecksByNameExact()', () => {
+    it('returns decks', async () => {
+      const serviceOfMicah = aServiceForUser(USER_ID_MICAH);
+      const micahsDeck = await serviceOfMicah.createDeck({
+        name: 'micahsDeck',
+      });
+
+      const result = await serviceOfMicah.findDecksByNameExact('micahsDeck');
+      expect(result).toEqual([micahsDeck]);
+    });
+
+    it('should not return fuzzy name matches', async () => {
+      const serviceOfMicah = aServiceForUser(USER_ID_MICAH);
+      const micahsDeck = await serviceOfMicah.createDeck({
+        name: 'micahsDeck',
+      });
+
+      const result = await serviceOfMicah.findDecksByNameExact('micahsDeck');
+      expect(result).toEqual([micahsDeck]);
+    });
+
+    it('returns only decks for current user', async () => {
+      const serviceOfBob = aServiceForUser(USER_ID_BOB);
+      const serviceOfMicah = aServiceForUser(USER_ID_MICAH);
+      await serviceOfMicah.createDeck({ name: 'micahsDeck' });
+
+      const result = await serviceOfBob.findDecksByNameExact('micahsDeck');
+      expect(result).toEqual([]);
+    });
+  });
+
   function aServiceForUser(userId) {
     return DeckService.new({ userId });
   }

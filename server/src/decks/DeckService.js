@@ -29,6 +29,14 @@ const DeckService = {
   async findDeckBySlug(slug) {
     return DeckGateway.findDeckByUserIdAndSlug(this.userId, slug);
   },
+
+  async findDecksByName(name) {
+    return DeckGateway.findDecksByUserIdAndName(this.userId, name);
+  },
+
+  async findDecksByNameExact(name) {
+    return DeckGateway.findDecksByUserIdAndNameExact(this.userId, name);
+  },
 };
 
 module.exports = DeckService;

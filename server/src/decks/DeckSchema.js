@@ -8,7 +8,6 @@ const typeDefs = gql`
 
   extend type Mutation {
     createDeck(data: DeckCreateInput!): Deck!
-    updateDeck(where: DeckWhereUniqueInput!, data: DeckUpdateInput!): Deck!
   }
 
   type Deck {
@@ -30,18 +29,18 @@ const typeDefs = gql`
     description: String
   }
 
-  input DeckUpdateInput {
-    name: String
-    description: String
-  }
-
   input DeckWhereUniqueInput {
     id: ID
     slug: String
   }
 
   input DeckWhereInput {
-    name: String
+    name: StringCriterium!
+  }
+
+  input StringCriterium {
+    eq: String
+    contains: String
   }
 `;
 
@@ -53,6 +52,15 @@ const resolvers = {
       } else if (where.slug) {
         return deckService.findDeckBySlug(where.slug);
       }
+    },
+    allDecks: (_, { where }, { deckService }) => {
+      if (where && where.name && where.name.eq) {
+        return deckService.findDecksByNameExact(where.name.eq);
+      }
+      if (where && where.name && where.name.contains) {
+        return deckService.findDecksByName(where.name.contains);
+      }
+      return deckService.getAllDecks();
     },
   },
   Mutation: {

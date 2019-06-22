@@ -37,9 +37,17 @@ const ALL_DECKS_QUERY = gql`
   }
 `;
 
-const SEARCH_DECKS_QUERY = gql`
-  query allDecks($name: String!) {
-    allDecks(where: { name: $name }) {
+const SEARCH_DECKS_BY_NAME_EQ_QUERY = gql`
+  query allDecks($nameEquals: String!) {
+    allDecks(where: { name: { eq: $nameEquals } }) {
+      ${ALL_FIELDS}
+    }
+  }
+`;
+
+const SEARCH_DECKS_BY_NAME_CONTAINS_QUERY = gql`
+  query allDecks($nameContains: String!) {
+    allDecks(where: { name: { contains: $nameContains } }) {
       ${ALL_FIELDS}
     }
   }
@@ -56,5 +64,6 @@ const CREATE_DECK_MUTATION = gql`
 exports.ALL_DECKS_QUERY = ALL_DECKS_QUERY;
 exports.DECK_QUERY_BY_ID = DECK_QUERY_BY_ID;
 exports.DECK_QUERY_BY_SLUG = DECK_QUERY_BY_SLUG;
-exports.SEARCH_DECKS_QUERY = SEARCH_DECKS_QUERY;
+exports.SEARCH_DECKS_BY_NAME_EQ_QUERY = SEARCH_DECKS_BY_NAME_EQ_QUERY;
+exports.SEARCH_DECKS_BY_NAME_CONTAINS_QUERY = SEARCH_DECKS_BY_NAME_CONTAINS_QUERY;
 exports.CREATE_DECK_MUTATION = CREATE_DECK_MUTATION;

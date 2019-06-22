@@ -1,6 +1,7 @@
 const Deck = require('./Deck');
 const uuid = require('uuid/v4');
 const assert = require('assert');
+const { escapeRegExp } = require('../utils/helpers');
 
 var decksById = {};
 var decksByUserId = {};
@@ -39,7 +40,25 @@ const DeckGateway = {
   },
 
   async findDecksByUserId(userId) {
-    return decksByUserId[userId];
+    const results = decksByUserId[userId];
+    if (!results) {
+      return [];
+    }
+    return results;
+  },
+
+  async findDecksByUserIdAndName(userId, name) {
+    const escapedName = escapeRegExp(name);
+    const nameRegExp = new RegExp(escapedName, 'i');
+    const results = await this.findDecksByUserId(userId);
+    return results.filter(deck => nameRegExp.test(deck.name));
+  },
+
+  async findDecksByUserIdAndNameExact(userId, name) {
+    const escapedName = escapeRegExp(name);
+    const nameRegExp = new RegExp('^' + escapedName + '$');
+    const results = await this.findDecksByUserId(userId);
+    return results.filter(deck => nameRegExp.test(deck.name));
   },
 
   async truncate() {
