@@ -1,6 +1,6 @@
 const { Logger, consoleTransport } = require('./logger');
 const { uniq } = require('./helpers');
-const { consoleMock } = require('../test/testUtils');
+const { consoleMock } = require('../utils/testUtils');
 const faker = require('faker');
 
 const aMessage = faker.lorem.sentences();

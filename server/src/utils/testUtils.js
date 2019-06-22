@@ -1,3 +1,5 @@
+/*global jest*/
+
 function consoleMock() {
   const originalConsole = global.console;
   const keysToMock = ['log', 'warn', 'error'];
