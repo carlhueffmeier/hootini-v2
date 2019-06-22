@@ -50,6 +50,8 @@ const resolvers = {
     deck: (_, { where }, { deckService }) => {
       if (where.id) {
         return deckService.findDeckById(where.id);
+      } else if (where.slug) {
+        return deckService.findDeckBySlug(where.slug);
       }
     },
   },

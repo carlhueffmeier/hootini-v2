@@ -19,13 +19,26 @@ describe('DeckSchema', () => {
     describe('deck', () => {
       it('should find deck by id', async () => {
         const createDeckResponse = await createDeck(deckData);
-        const deckId = createDeckResponse.data.createDeck.id;
+        const { id, slug } = createDeckResponse.data.createDeck;
 
         const result = await query({
           query: queries.DECK_QUERY_BY_ID,
-          variables: { id: deckId },
+          variables: { id },
         });
-        expect(result.data.deck.id).toBe(deckId);
+        expect(result.data.deck.id).toBe(id);
+        expect(result.data.deck.slug).toBe(slug);
+      });
+
+      it('should find deck by slug', async () => {
+        const createDeckResponse = await createDeck(deckData);
+        const { id, slug } = createDeckResponse.data.createDeck;
+
+        const result = await query({
+          query: queries.DECK_QUERY_BY_SLUG,
+          variables: { slug },
+        });
+        expect(result.data.deck.id).toBe(id);
+        expect(result.data.deck.slug).toBe(slug);
       });
     });
 

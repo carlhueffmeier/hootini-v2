@@ -54,6 +54,50 @@ describe('DeckService', () => {
     });
   });
 
+  describe('findDeckById()', () => {
+    it('returns deck', async () => {
+      const serviceOfMicah = aServiceForUser(USER_ID_MICAH);
+      const micahsDeck = await serviceOfMicah.createDeck({
+        name: 'micahsDeck',
+      });
+
+      expect(await serviceOfMicah.findDeckById(micahsDeck.id)).toBe(micahsDeck);
+    });
+
+    it('returns only decks for current user', async () => {
+      const serviceOfBob = aServiceForUser(USER_ID_BOB);
+      const serviceOfMicah = aServiceForUser(USER_ID_MICAH);
+      const micahsDeck = await serviceOfMicah.createDeck({
+        name: 'micahsDeck',
+      });
+
+      expect(await serviceOfBob.findDeckById(micahsDeck.id)).toBeUndefined();
+    });
+  });
+
+  describe('findDeckBySlug()', () => {
+    it('returns deck', async () => {
+      const serviceOfMicah = aServiceForUser(USER_ID_MICAH);
+      const micahsDeck = await serviceOfMicah.createDeck({
+        name: 'micahsDeck',
+      });
+
+      const result = await serviceOfMicah.findDeckBySlug(micahsDeck.slug);
+      expect(result).toBe(micahsDeck);
+    });
+
+    it('returns only decks for current user', async () => {
+      const serviceOfBob = aServiceForUser(USER_ID_BOB);
+      const serviceOfMicah = aServiceForUser(USER_ID_MICAH);
+      const micahsDeck = await serviceOfMicah.createDeck({
+        name: 'micahsDeck',
+      });
+
+      const result = await serviceOfBob.findDeckBySlug(micahsDeck.slug);
+      expect(result).toBeUndefined();
+    });
+  });
+
   function aServiceForUser(userId) {
     return DeckService.new({ userId });
   }

@@ -23,7 +23,11 @@ const DeckService = {
   },
 
   async findDeckById(id) {
-    return DeckGateway.findDeckById(id);
+    return DeckGateway.findDeckByUserIdAndId(this.userId, id);
+  },
+
+  async findDeckBySlug(slug) {
+    return DeckGateway.findDeckByUserIdAndSlug(this.userId, slug);
   },
 };
 
