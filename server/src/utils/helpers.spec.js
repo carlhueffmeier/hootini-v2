@@ -68,6 +68,70 @@ describe('helpers', () => {
     });
   });
 
+  describe('pipe()', () => {
+    it('should execute functions in correct order', () => {
+      const increment = x => x + 1;
+      const multiplyBy10 = x => x * 10;
+      const pipedCall = helpers.pipe([increment, multiplyBy10]);
+
+      expect(pipedCall(0)).toBe(10);
+      expect(pipedCall(9)).toBe(100);
+    });
+
+    it('should execute functions only once', () => {
+      const increment = jest.fn(x => x + 1);
+      const multiplyBy10 = jest.fn(x => x * 10);
+      const pipedCall = helpers.pipe([increment, multiplyBy10]);
+
+      pipedCall(0);
+      expect(increment).toHaveBeenCalled();
+      expect(multiplyBy10).toHaveBeenCalled();
+    });
+
+    it('should work with multiple input arguments', () => {
+      const add = (a, b) => a + b;
+      const multiplyBy10 = x => x * 10;
+      const pipedCall = helpers.pipe([add, multiplyBy10]);
+
+      expect(pipedCall(1, 4)).toBe(50);
+      expect(pipedCall(5, 5)).toBe(100);
+    });
+  });
+
+  describe('intercept()', () => {
+    var predicate, interceptedFn, interceptedCall;
+
+    beforeEach(() => {
+      predicate = jest.fn();
+      interceptedFn = jest.fn();
+      interceptedCall = helpers.intercept(predicate, interceptedFn);
+    });
+
+    it('given predicate is true, should call original method', () => {
+      predicate.mockReturnValueOnce(true);
+      interceptedCall(42);
+      expect(interceptedFn.mock.calls).toEqual([[42]]);
+    });
+
+    it('given predicate is false, should not call original method', () => {
+      predicate.mockReturnValueOnce(false);
+      interceptedCall(42);
+      expect(interceptedFn.mock.calls).toEqual([]);
+    });
+
+    it('should pass input to predicate', () => {
+      interceptedCall(42);
+      expect(predicate.mock.calls).toEqual([[42]]);
+    });
+  });
+
+  describe('uniq()', () => {
+    it('should keep distinct values', () => {
+      const result = helpers.uniq([1, 2, 3, 1, 2, 3]);
+      expect(result).toStrictEqual([1, 2, 3]);
+    });
+  });
+
   describe('generateSlug()', () => {
     it('given mixed case, returns all lower case', async () => {
       checkSlug('Spanish', 'spanish');
@@ -104,5 +168,26 @@ describe('helpers', () => {
       const result = helpers.generateSlug(input);
       expect(result).toBe(expected);
     }
+  });
+
+  describe('isTestEnv()', () => {
+    var originalNodeEnv;
+
+    beforeEach(() => {
+      originalNodeEnv = process.env.NODE_ENV;
+    });
+
+    afterEach(() => {
+      process.env.NODE_ENV = originalNodeEnv;
+    });
+
+    it('should be true when `process.env` is not modified', () => {
+      expect(helpers.isTestEnv()).toBe(true);
+    });
+
+    it('should be false when `process.env` is "production"', () => {
+      process.env.NODE_ENV = 'production';
+      expect(helpers.isTestEnv()).toBe(false);
+    });
   });
 });
