@@ -2,7 +2,7 @@ const gql = require('graphql-tag');
 
 const typeDefs = gql`
   extend type Query {
-    deck(where: DeckWhereUniqueInput): Deck!
+    deck(where: DeckWhereUniqueInput): Deck
     allDecks(where: DeckWhereInput): [Deck]!
   }
 
@@ -46,6 +46,13 @@ const typeDefs = gql`
 `;
 
 const resolvers = {
+  Query: {
+    deck: (_, { where }, { deckService }) => {
+      if (where.id) {
+        return deckService.findDeckById(where.id);
+      }
+    },
+  },
   Mutation: {
     createDeck: (_, { data }, { deckService }) => {
       return deckService.createDeck(data);

@@ -21,6 +21,10 @@ const DeckService = {
   async getAllDecks() {
     return DeckGateway.findDecksByUserId(this.userId);
   },
+
+  async findDeckById(id) {
+    return DeckGateway.findDeckById(id);
+  },
 };
 
 module.exports = DeckService;
