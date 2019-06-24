@@ -58,6 +58,28 @@ function uniq(arr) {
   return [...new Set(arr)];
 }
 
+function pickBy(predicate, object) {
+  return Object.entries(object).reduce((result, [key, value]) => {
+    if (predicate(key, value)) {
+      result[key] = value;
+    }
+    return result;
+  }, {});
+}
+
+function omit(keys, object) {
+  return pickBy(key => !keys.includes(key), object);
+}
+
+function nTimes(n, what) {
+  const isFn = typeof what === 'function';
+  const result = [];
+  for (let i = 0; i < n; i += 1) {
+    result.push(isFn ? what() : what);
+  }
+  return result;
+}
+
 function isTestEnv() {
   return process.env.NODE_ENV === 'test';
 }
@@ -78,6 +100,9 @@ exports.path = path;
 exports.pipe = pipe;
 exports.intercept = intercept;
 exports.uniq = uniq;
+exports.omit = omit;
+exports.nTimes = nTimes;
 exports.isTestEnv = isTestEnv;
 exports.escapeRegExp = escapeRegExp;
+exports.merge = require('lodash.merge');
 exports.generateSlug = require('slugs');

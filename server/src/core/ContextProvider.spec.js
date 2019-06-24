@@ -6,7 +6,7 @@ const A_USER_ID = 42;
 describe('ContextProvider', () => {
   it('given empty authToken, no userId in context', async () => {
     const context = await createRequestContext();
-    expect(context).not.toHaveProperty('userId');
+    expect(context.userId).toBeUndefined();
   });
 
   it('given valid authToken, context contains userId', async () => {

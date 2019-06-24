@@ -1,6 +1,6 @@
 const UserSchema = require('./UserSchema');
 const UserService = require('./UserService');
-const { mountSchema } = require('../graphql/GraphQLTestUtils');
+const { mountSchemas } = require('../graphql/GraphQLTestUtils');
 const { aNewUserProps } = require('./UserTestUtils');
 const queries = require('./mock/queries');
 
@@ -12,8 +12,8 @@ describe('UserSchema', () => {
   var userId;
 
   beforeEach(() => {
-    ({ query, mutate } = mountSchema(UserSchema, function context() {
-      return { userId, UserService };
+    ({ query, mutate } = mountSchemas([UserSchema], function context() {
+      return { userId, userService: UserService };
     }));
     userId = undefined;
   });

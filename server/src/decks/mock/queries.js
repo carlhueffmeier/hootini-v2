@@ -5,13 +5,13 @@ const ALL_FIELDS = `
   name
   slug
   description
-  last_note_type
-  cards_due
-  cards_total
-  last_review
-  last_activity
-  created_at
-  updated_at`;
+  lastNoteType
+  cardsDue
+  cardsTotal
+  lastReview
+  lastActivity
+  createdAt
+  updatedAt`;
 
 const DECK_QUERY_BY_ID = gql`
   query deck($id: ID!) {

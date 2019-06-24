@@ -9,6 +9,8 @@ setupLogging();
 const { typeDefs, resolvers } = mergeSchemaDefinitions(
   require('./graphql/BaseSchema'),
   require('./users/UserSchema'),
+  require('./decks/DeckSchema'),
+  require('./notes/NoteSchema'),
 );
 
 const server = new ApolloServer({

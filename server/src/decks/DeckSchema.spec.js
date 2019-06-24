@@ -1,7 +1,7 @@
 const DeckSchema = require('./DeckSchema');
 const DeckGateway = require('./DeckGateway');
 const DeckService = require('./DeckService');
-const { mountSchema } = require('../graphql/GraphQLTestUtils');
+const { mountSchemas } = require('../graphql/GraphQLTestUtils');
 const { aNewDeckUserInput } = require('./DeckTestUtils');
 const queries = require('./mock/queries');
 
@@ -14,7 +14,7 @@ describe('DeckSchema', () => {
   beforeEach(() => {
     DeckGateway.truncate();
     const deckService = DeckService.new({ userId: A_USER_ID });
-    ({ query, mutate } = mountSchema(DeckSchema, { deckService }));
+    ({ query, mutate } = mountSchemas([DeckSchema], { deckService }));
   });
 
   describe('Queries', () => {

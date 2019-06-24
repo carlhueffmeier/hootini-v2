@@ -1,27 +1,18 @@
 const gql = require('graphql-tag');
 
 const typeDefs = gql`
-  extend type Query {
-    deck(where: DeckWhereUniqueInput): Deck
-    allDecks(where: DeckWhereInput): [Deck]!
-  }
-
-  extend type Mutation {
-    createDeck(data: DeckCreateInput!): Deck!
-  }
-
   type Deck {
     id: ID!
     name: String!
     slug: String!
     description: String
-    last_note_type: Int
-    cards_due: Int
-    cards_total: Int
-    last_review: DateTime
-    last_activity: DateTime
-    created_at: DateTime
-    updated_at: DateTime
+    lastNoteType: Int
+    cardsDue: Int
+    cardsTotal: Int
+    lastReview: DateTime
+    lastActivity: DateTime
+    createdAt: DateTime
+    updatedAt: DateTime
   }
 
   input DeckCreateInput {
@@ -42,6 +33,19 @@ const typeDefs = gql`
     eq: String
     contains: String
   }
+
+  extend type Query {
+    deck(where: DeckWhereUniqueInput): Deck
+    allDecks(where: DeckWhereInput): [Deck]!
+  }
+
+  extend type Mutation {
+    createDeck(data: DeckCreateInput!): Deck!
+  }
+
+  # extend type Note {
+  #   deck: Deck!
+  # }
 `;
 
 module.exports = typeDefs;

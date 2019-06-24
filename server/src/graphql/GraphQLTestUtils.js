@@ -1,14 +1,13 @@
 const { createTestClient } = require('apollo-server-testing');
 const { ApolloServer } = require('apollo-server');
 const BaseSchema = require('./BaseSchema');
-const { isArray } = require('../utils/helpers');
+const { isArray, merge } = require('../utils/helpers');
 
-function mountSchema(schema, context = {}) {
-  const { typeDefs, resolvers } =
-    schema !== BaseSchema
-      ? mergeSchemaDefinitions(BaseSchema, schema)
-      : BaseSchema;
-
+function mountSchemas(schemas, context = {}) {
+  const { typeDefs, resolvers } = mergeSchemaDefinitions([
+    BaseSchema,
+    ...schemas,
+  ]);
   const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -18,7 +17,7 @@ function mountSchema(schema, context = {}) {
   return createTestClient(server);
 }
 
-function mergeSchemaDefinitions(...schemas) {
+function mergeSchemaDefinitions(schemas) {
   return schemas.reduce(
     (result, schema) => {
       if (isArray(schema.typeDefs)) {
@@ -26,7 +25,7 @@ function mergeSchemaDefinitions(...schemas) {
       } else {
         result.typeDefs.push(schema.typeDefs);
       }
-      Object.assign(result.resolvers, schema.resolvers || {});
+      merge(result.resolvers, schema.resolvers);
       return result;
     },
     { typeDefs: [], resolvers: {} },
@@ -37,4 +36,4 @@ function getContext(context) {
   return typeof context === 'function' ? context() : context;
 }
 
-exports.mountSchema = mountSchema;
+exports.mountSchemas = mountSchemas;

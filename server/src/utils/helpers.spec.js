@@ -125,10 +125,41 @@ describe('helpers', () => {
     });
   });
 
+  describe('omit()', () => {
+    it('should omit all specified keys', () => {
+      const input = { a: 1, b: 2, c: 3 };
+      expect(helpers.omit(['a'], input)).toEqual({ b: 2, c: 3 });
+      expect(helpers.omit(['a', 'b'], input)).toEqual({ c: 3 });
+      expect(helpers.omit(['a', 'b', 'c'], input)).toEqual({});
+    });
+
+    it('should ignore keys not present in input', () => {
+      const input = { a: 1, b: 2, c: 3 };
+      expect(helpers.omit(['d'], input)).toEqual({ a: 1, b: 2, c: 3 });
+      expect(helpers.omit(['d', 'c'], input)).toEqual({ a: 1, b: 2 });
+      expect(helpers.omit(['d', 'c', 'b'], input)).toEqual({ a: 1 });
+    });
+  });
+
   describe('uniq()', () => {
     it('should keep distinct values', () => {
       const result = helpers.uniq([1, 2, 3, 1, 2, 3]);
       expect(result).toStrictEqual([1, 2, 3]);
+    });
+  });
+
+  describe('nTimes', () => {
+    it('should create n identical copies', () => {
+      const result = helpers.nTimes(5, {});
+      expect(result).toHaveLength(5);
+      expect(result[0]).toBe(result[1]);
+    });
+
+    it('given a function as argument, should execute n times', () => {
+      const fooGenerator = jest.fn().mockReturnValue('foo');
+      const result = helpers.nTimes(3, fooGenerator);
+      expect(fooGenerator).toHaveBeenCalledTimes(3);
+      expect(result).toEqual(['foo', 'foo', 'foo']);
     });
   });
 
@@ -168,6 +199,15 @@ describe('helpers', () => {
       const result = helpers.generateSlug(input);
       expect(result).toBe(expected);
     }
+  });
+
+  describe('merge()', () => {
+    var object = { a: [{ b: 2 }, { d: 4 }] };
+    var other = { a: [{ c: 3 }, { e: 5 }] };
+
+    const result = helpers.merge(object, other);
+    const expected = { a: [{ b: 2, c: 3 }, { d: 4, e: 5 }] };
+    expect(result).toEqual(expected);
   });
 
   describe('isTestEnv()', () => {

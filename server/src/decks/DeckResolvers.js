@@ -22,6 +22,11 @@ const resolvers = {
       return deckService.createDeck(data);
     },
   },
+  // Note: {
+  //   deck: (note, _, { deckService }) => {
+  //     return deckService.findDeckById(note.deckId);
+  //   },
+  // },
 };
 
 module.exports = resolvers;

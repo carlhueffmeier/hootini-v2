@@ -1,15 +1,6 @@
 const gql = require('graphql-tag');
 
 const typeDefs = gql`
-  extend type Query {
-    me: User
-  }
-
-  extend type Mutation {
-    signup(data: UserSignupInput!): UserAuthenticationResponse!
-    signin(data: UserSigninInput!): UserAuthenticationResponse!
-  }
-
   type User {
     id: ID!
     email: String!
@@ -36,6 +27,15 @@ const typeDefs = gql`
   input UserSigninInput {
     email: String!
     password: String!
+  }
+
+  extend type Query {
+    me: User
+  }
+
+  extend type Mutation {
+    signup(data: UserSignupInput!): UserAuthenticationResponse!
+    signin(data: UserSigninInput!): UserAuthenticationResponse!
   }
 `;
 
