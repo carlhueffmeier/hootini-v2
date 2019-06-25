@@ -1,7 +1,7 @@
-const DeckGateway = require('./DeckGateway');
-const Deck = require('./Deck');
-const localEvents = require('../utils/localEvents');
-const { DECK_CREATED } = require('./DeckEvents');
+const localEvents = require('../common/localEvents');
+const DeckGateway = require('./gateway');
+const Deck = require('./deck');
+const { DECK_CREATED } = require('./events');
 
 const DeckService = {
   new({ userId }) {

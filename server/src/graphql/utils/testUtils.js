@@ -1,7 +1,7 @@
 const { createTestClient } = require('apollo-server-testing');
 const { ApolloServer } = require('apollo-server');
-const BaseSchema = require('./BaseSchema');
-const { isArray, merge } = require('../utils/helpers');
+const BaseSchema = require('../baseSchema');
+const { isArray, merge } = require('../../common/helpers');
 
 function mountSchemas(schemas, context = {}) {
   const { typeDefs, resolvers } = mergeSchemaDefinitions([

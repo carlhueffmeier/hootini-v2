@@ -1,7 +1,7 @@
-const User = require('./User');
-const { aNewUserProps, aUser } = require('./UserTestUtils');
-const UserGateway = require('./UserGateway');
-const { unpackToken } = require('../utils/cryptoUtils');
+const { unpackToken } = require('../common/cryptoUtils');
+const { aNewUserProps, aUser } = require('./utils/testUtils');
+const User = require('./user');
+const UserGateway = require('./gateway');
 
 const userData = aNewUserProps();
 

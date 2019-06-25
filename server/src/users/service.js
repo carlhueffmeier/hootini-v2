@@ -1,8 +1,8 @@
-const UserGateway = require('./UserGateway');
-const User = require('./User');
-const localEvents = require('../utils/localEvents');
-const { USER_CREATED } = require('./UserEvents');
-const AuthenticationError = require('./AuthenticationError');
+const localEvents = require('../common/localEvents');
+const UserGateway = require('./gateway');
+const User = require('./user');
+const { USER_CREATED } = require('./events');
+const { AuthenticationError } = require('./errors');
 
 const UserService = {
   async createUser(createUserInput) {

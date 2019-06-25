@@ -1,6 +1,6 @@
-const Note = require('./Note');
+const Note = require('../note');
 const faker = require('faker');
-const { nTimes } = require('../utils/helpers');
+const { nTimes } = require('../../common/helpers');
 
 function aNote(customProps = {}) {
   return Note.new(aNewNoteProps(customProps));

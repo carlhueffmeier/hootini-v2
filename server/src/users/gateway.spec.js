@@ -1,5 +1,5 @@
-const UserGateway = require('./UserGateway');
-const { aUser } = require('./UserTestUtils');
+const UserGateway = require('./gateway');
+const { aUser } = require('./utils/testUtils');
 
 describe('UserGateway', () => {
   it('should set the id on saved instances', async () => {

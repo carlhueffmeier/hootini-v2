@@ -1,6 +1,6 @@
-const User = require('./User');
-const uuid = require('uuid/v4');
 const assert = require('assert');
+const uuid = require('uuid/v4');
+const User = require('./user');
 
 var usersById = {};
 var usersByEmail = {};

@@ -1,5 +1,5 @@
-const NoteGateway = require('./NoteGateway');
-const Note = require('./Note');
+const NoteGateway = require('./gateway');
+const Note = require('./note');
 
 const NoteService = {
   new({ userId }) {

@@ -1,9 +1,9 @@
-const NoteSchema = require('./NoteSchema');
-const NoteGateway = require('./NoteGateway');
-const NoteService = require('./NoteService');
-const { mountSchemas } = require('../graphql/GraphQLTestUtils');
-const { aNewNoteUserInput } = require('./NoteTestUtils');
-const queries = require('./mock/queries');
+const NoteSchema = require('./schema');
+const NoteGateway = require('../gateway');
+const NoteService = require('../service');
+const { mountSchemas } = require('../../graphql/utils/testUtils');
+const { aNewNoteUserInput } = require('../utils/testUtils');
+const queries = require('./queries');
 
 const noteData = aNewNoteUserInput();
 const A_USER_ID = 5;

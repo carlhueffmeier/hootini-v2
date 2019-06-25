@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { none, isNil, generateSlug } = require('../utils/helpers');
+const { none, isNil, generateSlug } = require('../common/helpers');
 
 const Deck = {
   new(deckData) {

@@ -1,5 +1,5 @@
-const NoteGateway = require('./NoteGateway');
-const { aNote } = require('./NoteTestUtils');
+const NoteGateway = require('./gateway');
+const { aNote } = require('./utils/testUtils');
 
 describe('NoteGateway', () => {
   it('should set the id on saved instances', async () => {

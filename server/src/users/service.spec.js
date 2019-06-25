@@ -1,9 +1,9 @@
-const UserService = require('./UserService');
-const UserGateway = require('./UserGateway');
-const localEvents = require('../utils/localEvents');
-const { USER_CREATED } = require('./UserEvents');
-const { aNewUserProps, aUser } = require('./UserTestUtils');
-const AuthenticationError = require('./AuthenticationError');
+const localEvents = require('../common/localEvents');
+const { aNewUserProps, aUser } = require('./utils/testUtils');
+const UserService = require('./service');
+const UserGateway = require('./gateway');
+const { USER_CREATED } = require('./events');
+const { AuthenticationError } = require('./errors');
 
 const userData = aNewUserProps();
 const fakeCredentials = {

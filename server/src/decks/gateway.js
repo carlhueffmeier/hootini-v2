@@ -1,7 +1,7 @@
-const Deck = require('./Deck');
-const uuid = require('uuid/v4');
 const assert = require('assert');
-const { escapeRegExp } = require('../utils/helpers');
+const uuid = require('uuid/v4');
+const { escapeRegExp } = require('../common/helpers');
+const Deck = require('./deck');
 
 var decksById = {};
 var decksByUserId = {};

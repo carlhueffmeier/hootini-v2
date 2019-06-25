@@ -3,7 +3,7 @@ const {
   calculatePasswordHash,
   compareToHash,
   generateToken,
-} = require('../utils/cryptoUtils');
+} = require('../common/cryptoUtils');
 
 const User = {
   async new(userData) {

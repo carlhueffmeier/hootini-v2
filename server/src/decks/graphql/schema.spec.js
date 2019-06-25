@@ -1,9 +1,9 @@
-const DeckSchema = require('./DeckSchema');
-const DeckGateway = require('./DeckGateway');
-const DeckService = require('./DeckService');
-const { mountSchemas } = require('../graphql/GraphQLTestUtils');
-const { aNewDeckUserInput } = require('./DeckTestUtils');
-const queries = require('./mock/queries');
+const { mountSchemas } = require('../../graphql/utils/testUtils');
+const { aNewDeckUserInput } = require('../utils/testUtils');
+const DeckGateway = require('../gateway');
+const DeckService = require('../service');
+const DeckSchema = require('./schema');
+const queries = require('./queries');
 
 const deckData = aNewDeckUserInput();
 const A_USER_ID = 5;

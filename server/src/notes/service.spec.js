@@ -1,6 +1,6 @@
-const NoteService = require('./NoteService');
-const NoteGateway = require('./NoteGateway');
-const { aNewNoteUserInput } = require('./NoteTestUtils');
+const NoteService = require('./service');
+const NoteGateway = require('./gateway');
+const { aNewNoteUserInput } = require('./utils/testUtils');
 
 const A_USER_ID = 1;
 

@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { none, isNil, isArray } = require('../utils/helpers');
+const { none, isNil, isArray } = require('../common/helpers');
 
 const Note = {
   new(noteData) {

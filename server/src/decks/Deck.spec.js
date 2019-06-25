@@ -1,5 +1,5 @@
-const Deck = require('./Deck');
-const { aNewDeckProps } = require('./DeckTestUtils');
+const { aNewDeckProps } = require('./utils/testUtils');
+const Deck = require('./deck');
 
 const deckData = aNewDeckProps();
 

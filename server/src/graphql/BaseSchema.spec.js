@@ -1,5 +1,5 @@
-const BaseSchema = require('./BaseSchema');
-const { mountSchemas } = require('./GraphQLTestUtils');
+const BaseSchema = require('./baseSchema');
+const { mountSchemas } = require('./utils/testUtils');
 
 describe('BaseSchema', () => {
   describe('Query', () => {

@@ -1,16 +1,16 @@
 const { ApolloServer } = require('apollo-server');
-const { mergeSchemaDefinitions } = require('./utils/graphqlUtils');
-const { createRequestContext } = require('./core/ContextProvider');
-const { path, pipe, intercept, not, isTestEnv } = require('./utils/helpers');
-const { logger, consoleTransport } = require('./utils/logger');
+const { createRequestContext } = require('./core/contextProvider');
+const { mergeSchemaDefinitions } = require('./common/graphqlUtils');
+const { path, pipe, intercept, not, isTestEnv } = require('./common/helpers');
+const { logger, consoleTransport } = require('./common/logger');
 
 setupLogging();
 
 const { typeDefs, resolvers } = mergeSchemaDefinitions(
-  require('./graphql/BaseSchema'),
-  require('./users/UserSchema'),
-  require('./decks/DeckSchema'),
-  require('./notes/NoteSchema'),
+  require('./graphql/baseSchema'),
+  require('./users/graphql/schema'),
+  require('./decks/graphql/schema'),
+  require('./notes/graphql/schema'),
 );
 
 const server = new ApolloServer({

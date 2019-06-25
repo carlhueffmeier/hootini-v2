@@ -1,4 +1,4 @@
-const Note = require('./Note');
+const Note = require('./note');
 const uuid = require('uuid/v4');
 const assert = require('assert');
 

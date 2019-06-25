@@ -1,5 +1,5 @@
-const server = require('./start');
 const { createTestClient } = require('apollo-server-testing');
+const server = require('./start');
 
 describe('Bootstrapping (start.js)', () => {
   it('should respond to queries', async () => {

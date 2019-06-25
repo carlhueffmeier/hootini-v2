@@ -1,4 +1,4 @@
-const { isArray } = require('../utils/helpers');
+const { isArray } = require('./helpers');
 const merge = require('lodash.merge');
 
 function mergeSchemaDefinitions(...schemas) {

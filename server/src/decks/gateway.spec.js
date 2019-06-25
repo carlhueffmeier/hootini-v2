@@ -1,5 +1,5 @@
-const DeckGateway = require('./DeckGateway');
-const { aDeck } = require('./DeckTestUtils');
+const { aDeck } = require('./utils/testUtils');
+const DeckGateway = require('./gateway');
 
 const A_USER_ID = 5;
 const ANOTHER_USER_ID = 10;

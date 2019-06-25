@@ -1,5 +1,5 @@
-const { createRequestContext } = require('./ContextProvider');
-const { generateToken } = require('../utils/cryptoUtils');
+const { createRequestContext } = require('./contextProvider');
+const { generateToken } = require('../common/cryptoUtils');
 
 const A_USER_ID = 42;
 

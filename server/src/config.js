@@ -1,4 +1,4 @@
-const { firstNonNil } = require('./utils/helpers');
+const { firstNonNil } = require('./common/helpers');
 
 const config = {
   get jwt_secret() {

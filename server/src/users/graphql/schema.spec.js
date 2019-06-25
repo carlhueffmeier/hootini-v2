@@ -1,8 +1,8 @@
-const UserSchema = require('./UserSchema');
-const UserService = require('./UserService');
-const { mountSchemas } = require('../graphql/GraphQLTestUtils');
-const { aNewUserProps } = require('./UserTestUtils');
-const queries = require('./mock/queries');
+const { mountSchemas } = require('../../graphql/utils/testUtils');
+const { aNewUserProps } = require('../utils/testUtils');
+const UserService = require('../service');
+const UserSchema = require('./schema');
+const queries = require('./queries');
 
 const userData = aNewUserProps();
 

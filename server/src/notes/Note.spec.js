@@ -1,6 +1,6 @@
-const Note = require('./Note');
-const { aNewNoteProps } = require('./NoteTestUtils');
-const { omit } = require('../utils/helpers');
+const Note = require('./note');
+const { aNewNoteProps } = require('./utils/testUtils');
+const { omit } = require('../common/helpers');
 
 const noteData = aNewNoteProps();
 

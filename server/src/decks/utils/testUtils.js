@@ -1,5 +1,5 @@
-const Deck = require('./Deck');
 const faker = require('faker');
+const Deck = require('../deck');
 
 function aDeck(customProps = {}) {
   return Deck.new(aNewDeckProps(customProps));

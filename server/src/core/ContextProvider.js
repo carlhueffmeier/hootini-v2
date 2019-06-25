@@ -1,7 +1,7 @@
-const UserService = require('../users/UserService');
-const DeckService = require('../decks/DeckService');
-const NoteService = require('../notes/NoteService');
-const { unpackToken } = require('../utils/cryptoUtils');
+const UserService = require('../users/service');
+const DeckService = require('../decks/service');
+const NoteService = require('../notes/service');
+const { unpackToken } = require('../common/cryptoUtils');
 
 async function createRequestContext({ authToken } = {}) {
   const userId = authToken ? await getUserId(authToken) : undefined;
